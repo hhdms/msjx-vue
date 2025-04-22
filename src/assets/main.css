@@ -1,0 +1,78 @@
+@import './base.css';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Microsoft YaHei', sans-serif;
+  overflow: hidden;
+}
+
+#app {
+  height: 100%;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 15px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.el-menu {
+  border-right: none !important;
+}
+
+/* 表格样式优化 */
+.el-table th.el-table__cell {
+  background-color: #f5f7fa;
+  color: #606266;
+  font-weight: bold;
+}
+
+/* 分页控件样式优化 */
+.el-pagination {
+  padding: 15px 0;
+}
+
+.el-button + .el-button {
+  margin-left: 10px;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+  padding: 3px;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    place-items: center;
+  }
+
+  #app {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0 2rem;
+  }
+}
