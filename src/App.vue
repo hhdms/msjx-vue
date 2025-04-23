@@ -1,10 +1,12 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
 import { useRoute } from 'vue-router';
+import { HomeFilled, User, School, UserFilled, Setting, OfficeBuilding, SwitchButton } from '@element-plus/icons-vue';
 
 const route = useRoute();
 const activeIndex = ref('/');
 const openedMenu = ref('');
+const userName = ref('');
 
 // 计算属性：判断当前是否是登录页
 const isLoginPage = computed(() => {
@@ -28,6 +30,10 @@ const handleMenuUpdate = (event) => {
 onMounted(() => {
   // 添加事件监听
   window.addEventListener('menu-update', handleMenuUpdate);
+  
+  // 获取登录用户信息
+  const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
+  userName.value = userInfo.name || userInfo.username || '未登录用户';
 });
 
 onBeforeUnmount(() => {
@@ -48,7 +54,11 @@ onBeforeUnmount(() => {
     <header class="header">
       <h1 class="title">墨水教学-教育管理系统</h1>
       <div class="user-info">
-        <el-button type="text" @click="logout" class="logout-btn">退出登录</el-button>
+        <span class="welcome-text">欢迎您，{{userName}}</span>
+        <el-button type="text" @click="logout" class="logout-btn">
+          <el-icon><SwitchButton /></el-icon>
+          退出登录
+        </el-button>
       </div>
     </header>
     
@@ -58,8 +68,8 @@ onBeforeUnmount(() => {
         <el-menu
           :default-active="activeIndex"
           class="el-menu-vertical"
-          background-color="#304156"
-          text-color="#fff"
+          background-color="#f0f2f5"
+          text-color="#303133"
           active-text-color="#409EFF"
           router
           :default-openeds="openedMenu ? [openedMenu] : []"
@@ -127,7 +137,7 @@ onBeforeUnmount(() => {
   align-items: center;
   padding: 0 20px;
   height: 60px;
-  background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
+  background: linear-gradient(90deg, #4b89dc 0%, #5d9cec 100%);
   color: white;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -139,9 +149,24 @@ onBeforeUnmount(() => {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.welcome-text {
+  font-size: 14px;
+  color: white;
+  margin-right: 10px;
+}
+
 .logout-btn {
   color: white;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .logout-btn:hover {
@@ -158,7 +183,7 @@ onBeforeUnmount(() => {
 .sidebar {
   width: 220px;
   min-width: 220px;
-  background-color: #304156;
+  background-color: #f0f2f5;
   height: 100%;
   box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
   z-index: 10;
